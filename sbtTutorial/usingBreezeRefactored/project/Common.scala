@@ -4,12 +4,13 @@ import sbt._
 import Keys._
 
 object Common {
+   
 
   // emulate this: https://github.com/TrueCar/mleap/blob/master/project/Common.scala
 
   // Task 5b
   // use Scala 2.11.8
-  val scalaVer: String = ???
+  val scalaVer: String = "2.11.8"
 
   /*
    http://www.scala-sbt.org/0.13/docs/Resolvers.html
@@ -21,10 +22,20 @@ object Common {
    */
 
   // Task 5c
-  lazy val otherResolvers: Seq[Resolver] = ???
+  lazy val otherResolvers: Seq[Resolver] = Seq(
+      "bintray/non" at "http://dl.bintray.com/non/maven",
+      "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+
+    )
 
   // Task 5a and Task 5g
-  lazy val commonSettings: Seq[Def.Setting[_]] = ???
+  lazy val commonSettings: Seq[Def.Setting[_]] = Seq(
+      scalaVersion:= scalaVer,
+      organization := "com.datascience.education",
+      resolvers ++= otherResolvers,
+      scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
+      libraryDependencies ++= Dependencies.commonDependencies
+    )
 
 }
 
